@@ -1,0 +1,76 @@
+{% extends 'todos/../base.html' %}
+{% block title %}{{ project.name}}{% endblock %}
+{% block menu %}
+
+{% endblock %}
+
+{% block content %}
+    <h1 class="text-center">Заказ покупателя: {{ orders.first_name }}</h1>
+    <table class="table table-striped">
+            <thead>
+        <tr>
+            <th scope="col">Пользователь:</th>
+            <th scope="col">Имя:</th>
+            <th scope="col">Фамилия:</th>
+            <th scope="col">Email:</th>
+            <th scope="col">Телефон:</th>
+            <th scope="col">Статус:</th>
+            <th scope="col">Содан:</th>
+            <th scope="col">Отредактирован:</th>
+        </tr>
+        </thead>
+            <tbody>
+            <tr>
+                <td>{{ orders.user  }}</td>
+                <td>{{ orders.first_name  }}</td>
+                <td>{{ orders.last_name  }}</td>
+                <td>{{ orders.email }}</td>
+                <td>{{ orders.phone }}</td>
+                <td>{{ orders.status }}</td>
+                <td>{{ orders.created_at }}</td>
+                <td>{{ orders.updated_at }}</td>
+            </tr>
+        </tbody>
+    <a href="{% url 'webapp:order_update' orders.pk %}">Редакитровать данные пользователя</a><br>
+    <a href="{% url 'webapp:order_product_create' orders.pk %}">Добавить товары</a><br>
+    <a href="{% url 'webapp:order_product_update' orders.pk %}">Редактировать товары</a><br>
+    <p><a href="{% url 'webapp:delivered' orders.pk %}" class="btn btn-danger">Доставлен</a></p>
+    <p><a href="{% url 'webapp:canceled' orders.pk %}" class="btn btn-danger">Отмена</a></p>
+    <p><a href="{% url 'webapp:order_delete' orders.pk %}" class="btn btn-danger">Удалить</a></p>
+    </table>
+    <h1 class="text-center">Заказ</h1>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">Товар</th>
+            <th scope="col">Цена</th>
+            <th scope="col">Количество</th>
+            <th scope="col">Итого</th>
+            <th colspan="2">Действия</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in amount_list %}
+            <tr>
+                <td><a href="{% url 'webapp:product_detail' item.product.pk %}">{{ item.product.name }}</a></td>
+                <td>{{ item.product.price }}</td>
+                <td>{{ item.qty }}</td>
+                <td>{{ item.total }}</td>
+{#                <td>#}
+{#                    <a href="{% url 'webapp:basket_change' %}?pk={{ item.product.pk }}&action=add&next={% url 'webapp:basket' %}">Больше</a>#}
+{#                </td>#}
+{#                <td>#}
+{#                    <a href="{% url 'webapp:basket_change' %}?pk={{ item.product.pk }}&action=remove&next={% url 'webapp:basket' %}">Меньше</a>#}
+{#                </td>#}
+            </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot>
+        <tr>
+            <th colspan="3">Итого:</th>
+            <td colspan="3">{{ total_price }}</td>
+        </tr>
+        </tfoot>
+    </table>
+
+{% endblock %}

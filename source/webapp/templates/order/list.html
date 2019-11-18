@@ -1,0 +1,26 @@
+
+{% extends 'base.html' %}
+{% block menu %}
+
+{% endblock %}
+{% block content %}
+   <h1>Заказы:</h1>
+   <hr/>
+{#    {% if is_paginated %}#}
+{#        {% include 'partial/pagination.html' %}#}
+{#    {% endif %}#}
+   {% for order in orders %}
+           <div class="card border-primary mb-3" style="max-width: 18rem; text-align: center">
+  <div class="card-header"><h3>{{ order.first_name}}
+  {{ order.pk }}</h3><a href="{% url 'webapp:order_detail' order.pk %}"> Details...</a></p>
+{#    <h5 class="card-title">{{ todo.description }}</h5>#}
+{#      <h5 class="card-title">Status: {{ todo.status }}</h5>#}
+{#      <h5 class="card-title">Type: {{ todo.type }}</h5>#}
+{#    <p class="card-title"><a href="{% url 'webapp:todo_view' todo.pk %}"> Details...</a></p>#}
+  </div>
+</div>
+   {% endfor %}
+{#    {% if is_paginated %}#}
+{#        {% include 'partial/pagination.html' %}#}
+{#    {% endif %}#}
+{% endblock %}

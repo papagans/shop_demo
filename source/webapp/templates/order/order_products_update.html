@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block title %}Редактировать товары {{ order.user }}{% endblock %}
+{% block content %}
+    <h1 class="text-center">Редактировать товары {{ order.user }}</h1>
+    <form action="{% url "webapp:order_product_update" order.pk %}" method="POST" enctype="multipart/form-data">
+        {% include 'partial/form.html' %}
+        <input type="submit" value="Редактировать" class="btn btn-primary">
+    </form>
+{% endblock %}

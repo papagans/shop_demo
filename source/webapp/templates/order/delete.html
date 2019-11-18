@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}Удалить заказ{% endblock %}
+{% block content %}
+    <h3 class="text-center">Заказ {{ щквук }} будет удален!</h3>
+    <form class="text-center" action="{% url "webapp:order_delete" order.pk %}"
+          method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="submit" value="ОК" class="btn btn-danger">
+        <a href="{% url 'webapp:order_list' %}" class="btn btn-secondary">Отмена</a>
+    </form>
+{% endblock %}

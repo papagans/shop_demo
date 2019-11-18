@@ -11,21 +11,21 @@ class BasketOrderCreateForm(ModelForm):
             self.user = None
         super().__init__(**kwargs)
 
-    def clean_first_name(self):
-        if not self.user and not self.cleaned_data.get('first_name'):
-            raise ValidationError('Вы должны авторизоваться либо указать ваше имя!')
-
-    def clean_email(self):
-        if not self.user and not self.cleaned_data.get('email'):
-            raise ValidationError('Вы должны авторизоваться либо указать ваш email!')
-
-    def clean_phone(self):
-        if not self.user and not self.cleaned_data.get('phone'):
-            raise ValidationError('Вы должны авторизоваться либо указать ваш телефон!')
-
-    def save(self, commit=True):
-        self.instance.user = self.user
-        return super().save(commit)
+    # def clean_first_name(self):
+    #     if not self.user and not self.cleaned_data.get('first_name'):
+    #         raise ValidationError('Вы должны авторизоваться либо указать ваше имя!')
+    #
+    # def clean_email(self):
+    #     if not self.user and not self.cleaned_data.get('email'):
+    #         raise ValidationError('Вы должны авторизоваться либо указать ваш email!')
+    #
+    # def clean_phone(self):
+    #     if not self.user and not self.cleaned_data.get('phone'):
+    #         raise ValidationError('Вы должны авторизоваться либо указать ваш телефон!')
+    #
+    # def save(self, commit=True):
+    #     self.instance.user = self.user
+    #     return super().save(commit)
 
     class Meta:
         model = Order
@@ -33,17 +33,6 @@ class BasketOrderCreateForm(ModelForm):
 
 
 class ManualOrderForm(ModelForm):
-    def clean_first_name(self):
-        if not self.user and not self.cleaned_data.get('first_name'):
-            raise ValidationError('Вы должны указать пользователя либо его имя!')
-
-    def clean_email(self):
-        if not self.user and not self.cleaned_data.get('email'):
-            raise ValidationError('Вы должны указать пользователя либо его email!')
-
-    def clean_phone(self):
-        if not self.user and not self.cleaned_data.get('phone'):
-            raise ValidationError('Вы должны указать пользователя либо его телефон!')
 
     class Meta:
         model = Order
@@ -53,4 +42,4 @@ class ManualOrderForm(ModelForm):
 class OrderProductForm(ModelForm):
     class Meta:
         model = OrderProduct
-        fields = ['product', 'amount']
+        fields = ['order', 'product', 'amount']
