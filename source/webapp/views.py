@@ -150,19 +150,19 @@ class BasketView(StatsMixin, CreateView):
             self.request.session.pop('products_count')
 
 
-class OrderListView(PermissionRequiredMixin, ListView):
+class OrderListView(ListView):
     template_name = 'order/list.html'
     context_object_name = 'orders'
-    permission_required = 'webapp.view_order'
-    permission_denied_message = '403 Доступ запрещён!'
+    # permission_required = 'webapp.view_order'
+    # permission_denied_message = '403 Доступ запрещён!'
 
     def get_queryset(self):
-        if self.request.user.has_perm('webapp:view_order'):
+        if self.request.user.has_perm('webapp.view_order'):
             return Order.objects.all().order_by('-created_at')
         return self.request.user.orders.all().order_by('-created_at')
 
 
-class OrderDetailView(PermissionRequiredMixin,DetailView):
+class OrderDetailView(PermissionRequiredMixin, DetailView):
     template_name = 'order/detail.html'
     context_object_name = 'orders'
     model = Order
@@ -197,7 +197,7 @@ class OrderDetailView(PermissionRequiredMixin,DetailView):
         return totals
 
     def get_queryset(self):
-        if self.request.user.has_perm('webapp:view_order'):
+        if self.request.user.has_perm('webapp.view_order'):
             return Order.objects.all()
         return self.request.user.orders.all()
 

@@ -9,6 +9,7 @@
 {#    {% if is_paginated %}#}
 {#        {% include 'partial/pagination.html' %}#}
 {#    {% endif %}#}
+    {% if perms.webapp.view_order %}
    {% for order in orders %}
            <div class="card border-primary mb-3" style="max-width: 18rem; text-align: center">
   <div class="card-header"><h3>{{ order.first_name}}
@@ -19,7 +20,8 @@
 {#    <p class="card-title"><a href="{% url 'webapp:todo_view' todo.pk %}"> Details...</a></p>#}
   </div>
 </div>
-   {% endfor %}
+        {% endfor %}
+       {% endif %}
 {#    {% if is_paginated %}#}
 {#        {% include 'partial/pagination.html' %}#}
 {#    {% endif %}#}

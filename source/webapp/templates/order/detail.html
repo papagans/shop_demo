@@ -31,12 +31,16 @@
                 <td>{{ orders.updated_at }}</td>
             </tr>
         </tbody>
-    <a href="{% url 'webapp:order_update' orders.pk %}">Редакитровать данные пользователя</a><br>
-    <a href="{% url 'webapp:order_product_create' orders.pk %}">Добавить товары</a><br>
-    <a href="{% url 'webapp:order_product_update' orders.pk %}">Редактировать товары</a><br>
-    <p><a href="{% url 'webapp:delivered' orders.pk %}" class="btn btn-danger">Доставлен</a></p>
-    <p><a href="{% url 'webapp:canceled' orders.pk %}" class="btn btn-danger">Отмена</a></p>
-    <p><a href="{% url 'webapp:order_delete' orders.pk %}" class="btn btn-danger">Удалить</a></p>
+        {% if perms.webapp.change_order %}
+            <a href="{% url 'webapp:order_update' orders.pk %}">Редакитровать данные пользователя</a><br>
+            <a href="{% url 'webapp:order_product_create' orders.pk %}">Добавить товары</a><br>
+            <a href="{% url 'webapp:order_product_update' orders.pk %}">Редактировать товары</a><br>
+            <p><a href="{% url 'webapp:canceled' orders.pk %}" class="btn btn-danger">Отмена</a></p>
+            <p><a href="{% url 'webapp:order_delete' orders.pk %}" class="btn btn-danger">Удалить</a></p>
+            {% endif %}
+        {% if perms.webapp.can_change_deliver %}
+            <p><a href="{% url 'webapp:delivered' orders.pk %}" class="btn btn-danger">Доставлен</a></p>
+            {% endif %}
     </table>
     <h1 class="text-center">Заказ</h1>
     <table class="table table-striped">

@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
 {% block title %}Товары{% endblock %}
 {% block menu %}
-    {% if perms.webapp.add_product and perms.webapp.can_have_piece_of_pizza %}
+    {% if perms.webapp.add_product %}
         <li class="nav-item"><a href="{% url 'webapp:product_create' %}" class="nav-link">Добавить товар</a></li>
+        {% endif %}
+    {% if perms.webapp.view_order %}
         <li class="nav-item"><a href="{% url 'webapp:order_list' %}" class="nav-link">Заказы</a></li>
     {% endif %}
 {% endblock %}
